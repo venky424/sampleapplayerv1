@@ -37,4 +37,40 @@ public class CategoryController {
         }
         return categoryList;
     }
+
+    @GetMapping(value="/v1/categoryList/", produces = {APPLICATION_JSON_VALUE})
+    public List<Category> getCategoryList(@RequestParam(value = "categoryId") long categoryId,
+                                          HttpServletRequest req,
+                                          HttpServletResponse resp){
+        List<Category> categoryList=null;
+        try{
+            log.info("Request received for categoryid:"+categoryId);
+            categoryList=catService.getCategoryList(categoryId);
+            if(categoryList.size()==0){
+                resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
+            }
+        }catch(Exception e){
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            log.info("Exception encountered is:"+e.getMessage());
+        }
+        return categoryList;
+    }
+
+    @GetMapping(value="/v1/categoryList/", produces = {APPLICATION_JSON_VALUE})
+    public List<Category> getCategoryList(@RequestParam(value = "categoryId") long categoryId,
+                                          HttpServletRequest req,
+                                          HttpServletResponse resp){
+        List<Category> categoryList=null;
+        try{
+            log.info("Request received for categoryid:"+categoryId);
+            categoryList=catService.getCategoryList(categoryId);
+            if(categoryList.size()==0){
+                resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
+            }
+        }catch(Exception e){
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            log.info("Exception encountered is:"+e.getMessage());
+        }
+        return categoryList;
+    }
 }

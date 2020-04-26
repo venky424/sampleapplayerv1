@@ -33,4 +33,12 @@ public class Category {
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
     }
+
+    public String getCategoryDescr() {
+        return categoryDescr;
+    }
+
+    public void setCategoryDescr(String categoryDescr) {
+        this.categoryDescr = categoryDescr;
+    }
 }
