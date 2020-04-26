@@ -7,7 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 class Sampleapplayerv1ApplicationTests {
 
     @Test
-    void contextLoads() {
+    public String Test() {
+        return "pass";
     }
 
 }
