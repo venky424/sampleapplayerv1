@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface CategoryRepository extends CrudRepository<Category,Long> {
 
-    List<Category> findAllBy(long categoryId);
+    List<Category> findAllByCategoryId(long CategoryId);
 
     List<Category> findAll();
 }
