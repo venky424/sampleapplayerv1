@@ -20,14 +20,14 @@ public class CategoryController {
     @Autowired
     CategoryService catService;
 
-    @GetMapping(value="/v1/categoryList/", produces = {APPLICATION_JSON_VALUE})
-    public List<Category> getCategoryList(@RequestParam(value = "categoryId") long categoryId,
+    @GetMapping(value="/v1/categoryListById/", produces = {APPLICATION_JSON_VALUE})
+    public List<Category> getCategoryListById(@RequestParam(value = "categoryId") long categoryId,
                                           HttpServletRequest req,
                                           HttpServletResponse resp){
         List<Category> categoryList=null;
         try{
             log.info("Request received for categoryid:"+categoryId);
-            categoryList=catService.getCategoryList(categoryId);
+            categoryList=catService.getCategoryListById(categoryId);
             if(categoryList.size()==0){
                 resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
             }
@@ -39,13 +39,12 @@ public class CategoryController {
     }
 
     @GetMapping(value="/v1/categoryList/", produces = {APPLICATION_JSON_VALUE})
-    public List<Category> getCategoryList(@RequestParam(value = "categoryId") long categoryId,
-                                          HttpServletRequest req,
+    public List<Category> getCategoryList(HttpServletRequest req,
                                           HttpServletResponse resp){
         List<Category> categoryList=null;
         try{
-            log.info("Request received for categoryid:"+categoryId);
-            categoryList=catService.getCategoryList(categoryId);
+            log.info("Request received for all categories:");
+            categoryList=catService.getCategoryList();
             if(categoryList.size()==0){
                 resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
             }
@@ -56,21 +55,4 @@ public class CategoryController {
         return categoryList;
     }
 
-    @GetMapping(value="/v1/categoryList/", produces = {APPLICATION_JSON_VALUE})
-    public List<Category> getCategoryList(@RequestParam(value = "categoryId") long categoryId,
-                                          HttpServletRequest req,
-                                          HttpServletResponse resp){
-        List<Category> categoryList=null;
-        try{
-            log.info("Request received for categoryid:"+categoryId);
-            categoryList=catService.getCategoryList(categoryId);
-            if(categoryList.size()==0){
-                resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
-            }
-        }catch(Exception e){
-            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            log.info("Exception encountered is:"+e.getMessage());
-        }
-        return categoryList;
-    }
 }

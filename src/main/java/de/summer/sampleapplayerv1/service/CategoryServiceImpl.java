@@ -16,11 +16,25 @@ public class CategoryServiceImpl implements CategoryService{
     CategoryRepository catrepo;
 
     @Override
-    public List<Category> getCategoryList(long categoryId) {
+    public List<Category> getCategoryListById(long categoryId) {
         List<Category> categoryList=null;
-        log.info("Category Servive Started");
+        log.info("Category Servive Started for categoryId:"+categoryId);
         try{
-            categoryList= (List<Category>) catrepo.findAll();
+            categoryList= catrepo.findAllBy(categoryId);
+        }catch(Exception e)
+        {
+            log.error("Exception encountered is:"+e.getMessage());
+        }
+
+        return categoryList;
+    }
+
+    @Override
+    public List<Category> getCategoryList() {
+        List<Category> categoryList=null;
+        log.info("Category Servive Started for all categories");
+        try{
+            categoryList= catrepo.findAll();
         }catch(Exception e)
         {
             log.error("Exception encountered is:"+e.getMessage());
