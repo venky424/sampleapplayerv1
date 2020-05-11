@@ -20,7 +20,7 @@ public class CategoryServiceImpl implements CategoryService{
         List<Category> categoryList=null;
         log.info("Category Servive Started for categoryId:"+categoryId);
         try{
-            categoryList= catrepo.findAllByCategoryId(categoryId);
+            categoryList= catrepo.findAllById(categoryId);
         }catch(Exception e)
         {
             log.error("Exception encountered is:"+e.getMessage());

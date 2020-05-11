@@ -13,18 +13,11 @@ public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int categoryId;
+    private int id;
     private String categoryName;
     private String categoryDescr;
 
 
-    public int getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
-    }
 
     public String getCategoryName() {
         return categoryName;
@@ -40,5 +33,13 @@ public class Category {
 
     public void setCategoryDescr(String categoryDescr) {
         this.categoryDescr = categoryDescr;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
