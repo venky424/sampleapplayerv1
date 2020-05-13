@@ -10,4 +10,6 @@ public interface CategoryService {
     public List<Category> getCategoryListById(long categoryId);
 
     public List<Category> getCategoryList();
+
+    public Category newCategoryList(Category category);
 }

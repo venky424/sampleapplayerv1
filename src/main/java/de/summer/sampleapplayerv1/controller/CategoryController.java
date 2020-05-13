@@ -5,6 +5,7 @@ import de.summer.sampleapplayerv1.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
@@ -53,6 +54,26 @@ public class CategoryController {
             log.info("Exception encountered is:"+e.getMessage());
         }
         return categoryList;
+    }
+
+
+    @PostMapping(value="/v1/updateCategoryList/", produces = {APPLICATION_JSON_VALUE})
+    public Category updCategoryList(Category category,HttpServletRequest req,
+                                          HttpServletResponse resp){
+        Category updresponse=null;
+        try{
+            log.info("Request received for updating categories:"+category.getCategoryname());
+            if ("".equals(category.getCategoryname())){
+                resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
+            }
+            else{
+                updresponse=catService.newCategoryList(category);
+            }
+        }catch(Exception e){
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            log.info("Exception encountered is:"+e.getMessage());
+        }
+        return updresponse;
     }
 
 }
