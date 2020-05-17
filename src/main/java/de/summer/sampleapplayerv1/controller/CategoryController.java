@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -58,16 +59,20 @@ public class CategoryController {
 
 
     @PostMapping(value="/v1/updateCategoryList/", produces = {APPLICATION_JSON_VALUE})
-    public Category updCategoryList(Category category,HttpServletRequest req,
+    public Category updCategoryList(@RequestParam(value="categoryname") String categoryname,
+                                          @RequestParam(value="categorydescr") String categorydescr,
+                                          @RequestParam(value="createdby") String createdby,
+                                          @RequestParam(value="updatedby") String updatedby,
+                                          HttpServletRequest req,
                                           HttpServletResponse resp){
         Category updresponse=null;
         try{
-            log.info("Request received for updating categories:"+category.getCategoryname());
-            if ("".equals(category.getCategoryname())){
+            log.info("Request received for updating category for the details:"+categoryname,categorydescr,createdby,updatedby);
+            if ("".equals(categoryname)){
                 resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
             }
             else{
-                updresponse=catService.newCategoryList(category);
+                updresponse=catService.newCategoryList(categoryname,categorydescr,createdby,updatedby);
             }
         }catch(Exception e){
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
