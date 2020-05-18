@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -48,16 +49,22 @@ public class CategoryServiceImpl implements CategoryService{
     }
 
     @Override
-    public Category newCategoryList(Category category) {
+    public Category newCategoryList(String categoryname, String categorydescr, String createdby, String updatedby) {
         Category updresponse=null;
-        log.info("Category new Service Started for requested category:"+category.getId());
+        Category category=new Category();
+        log.info("Category new Service Started for requested category:"+categoryname,categorydescr,createdby,updatedby);
         try{
+            category.setCategoryname(categoryname);
+            category.setCategorydescr(categorydescr);
+            category.setCreatedby(createdby);
+            category.setUpdatedby(updatedby);
             updresponse= catrepo.save(category);
-            log.info("Category new Service completed for requested category:"+category.getId());
+            log.info("Category new Service completed for requested category:"+categoryname,categorydescr,createdby,updatedby);
         }catch(Exception e)
         {
-            log.info("Category new Service completed for requested category:"+category.getId());
+            log.info("Category new Service completed for requested category:"+categoryname,categorydescr,createdby,updatedby);
             log.error("Exception encountered is:"+e.getMessage());
+            e.printStackTrace();
         }
         return updresponse;
     }
