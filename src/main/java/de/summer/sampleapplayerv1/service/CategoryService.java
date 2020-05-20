@@ -12,5 +12,9 @@ public interface CategoryService {
 
     public List<Category> getCategoryList();
 
-    public Category newCategoryList(String categoryname, String categorydescr, String createdby, String updatedby);
+    public String newCategoryList(String categoryname, String categorydescr, String createdby, String updatedby);
+
+    public String updCategoryList(long id,String categoryname, String categorydescr, String createdby, String updatedby);
+
+    public String delCategoryList(long id);
 }

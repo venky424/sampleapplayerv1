@@ -49,8 +49,8 @@ public class CategoryServiceImpl implements CategoryService{
     }
 
     @Override
-    public Category newCategoryList(String categoryname, String categorydescr, String createdby, String updatedby) {
-        Category updresponse=null;
+    public String newCategoryList(String categoryname, String categorydescr, String createdby, String updatedby) {
+        String updresponse=null;
         Category category=new Category();
         log.info("Category new Service Started for requested category:"+categoryname,categorydescr,createdby,updatedby);
         try{
@@ -58,13 +58,55 @@ public class CategoryServiceImpl implements CategoryService{
             category.setCategorydescr(categorydescr);
             category.setCreatedby(createdby);
             category.setUpdatedby(updatedby);
-            updresponse= catrepo.save(category);
+            catrepo.save(category);
             log.info("Category new Service completed for requested category:"+categoryname,categorydescr,createdby,updatedby);
+            updresponse="Category id "+categoryname +" has been created";
         }catch(Exception e)
         {
             log.info("Category new Service completed for requested category:"+categoryname,categorydescr,createdby,updatedby);
             log.error("Exception encountered is:"+e.getMessage());
-            e.printStackTrace();
+            updresponse="Category id "+categoryname +" has been failed to get created";
+        }
+        return updresponse;
+    }
+
+    @Override
+    public String updCategoryList(long id,String categoryname, String categorydescr, String createdby, String updatedby) {
+        String updresponse=null;
+        Category category=new Category();
+        log.info("Category new Service Started for requested category:"+id,categoryname,categorydescr,createdby,updatedby);
+        try{
+            category.setId(id);
+            category.setCategoryname(categoryname);
+            category.setCategorydescr(categorydescr);
+            category.setCreatedby(createdby);
+            category.setUpdatedby(updatedby);
+            catrepo.save(category);
+            log.info("Category new Service completed for requested category:"+id,categoryname,categorydescr,createdby,updatedby);
+            updresponse="Category id "+id +" has been updated";
+        }catch(Exception e)
+        {
+            log.info("Category new Service failed for requested category:"+id,categoryname,categorydescr,createdby,updatedby);
+            log.error("Exception encountered is:"+e.getMessage());
+            updresponse="Category id "+id +" has been failed to get updated";
+        }
+        return updresponse;
+    }
+
+    @Override
+    public String delCategoryList(long id) {
+        String updresponse=null;
+        Category category=new Category();
+        log.info("Category delete Service Started for requested category:"+id);
+        try{
+            catrepo.deleteById(id);
+            log.info("Category delete Service completed for requested category:"+id);
+            updresponse="Category id "+id+" has been deleted";
+        }catch(Exception e)
+        {
+            log.info("Category delete Service failed for requested category:"+id);
+            log.error("Exception encountered is:"+e.getMessage());
+            updresponse="Category id "+id+" has been failed to get deleted";
         }
         return updresponse;
     }

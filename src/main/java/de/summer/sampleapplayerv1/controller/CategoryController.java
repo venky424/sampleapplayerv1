@@ -4,10 +4,8 @@ import de.summer.sampleapplayerv1.domain.Category;
 import de.summer.sampleapplayerv1.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
@@ -58,14 +56,14 @@ public class CategoryController {
     }
 
 
-    @PostMapping(value="/v1/updateCategoryList/", produces = {APPLICATION_JSON_VALUE})
-    public Category updCategoryList(@RequestParam(value="categoryname") String categoryname,
+    @PostMapping(value="/v1/newCategoryList/", produces = {APPLICATION_JSON_VALUE})
+    public String updCategoryList(@RequestParam(value="categoryname") String categoryname,
                                           @RequestParam(value="categorydescr") String categorydescr,
                                           @RequestParam(value="createdby") String createdby,
                                           @RequestParam(value="updatedby") String updatedby,
                                           HttpServletRequest req,
                                           HttpServletResponse resp){
-        Category updresponse=null;
+        String updresponse=null;
         try{
             log.info("Request received for updating category for the details:"+categoryname,categorydescr,createdby,updatedby);
             if ("".equals(categoryname)){
@@ -73,6 +71,51 @@ public class CategoryController {
             }
             else{
                 updresponse=catService.newCategoryList(categoryname,categorydescr,createdby,updatedby);
+            }
+        }catch(Exception e){
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            log.info("Exception encountered is:"+e.getMessage());
+        }
+        return updresponse;
+    }
+
+
+    @PutMapping(value="/v1/updCategoryList/", produces = {APPLICATION_JSON_VALUE})
+    public String updCategoryList(@RequestParam(value="id") long id,
+                                    @RequestParam(value="categoryname") String categoryname,
+                                    @RequestParam(value="categorydescr") String categorydescr,
+                                    @RequestParam(value="createdby") String createdby,
+                                    @RequestParam(value="updatedby") String updatedby,
+                                    HttpServletRequest req,
+                                    HttpServletResponse resp){
+        String updresponse=null;
+        try{
+            log.info("Request received for updating category for the details:"+categoryname,categorydescr,createdby,updatedby);
+            if ("".equals(categoryname)){
+                resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
+            }
+            else{
+                updresponse=catService.updCategoryList(id,categoryname,categorydescr,createdby,updatedby);
+            }
+        }catch(Exception e){
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            log.info("Exception encountered is:"+e.getMessage());
+        }
+        return updresponse;
+    }
+
+    @DeleteMapping(value="/v1/delCategoryList/", produces = {APPLICATION_JSON_VALUE})
+    public String delCategoryList(@RequestParam(value="id") long id,
+                                    HttpServletRequest req,
+                                    HttpServletResponse resp){
+        String updresponse=null;
+        try{
+            log.info("Request received for updating category for the details:"+id);
+            if ("".equals(id)){
+                resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
+            }
+            else{
+                updresponse=catService.delCategoryList(id);
             }
         }catch(Exception e){
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
